@@ -1,0 +1,131 @@
+@startuml
+
+title Snake Design Class Diagram
+
+class Activity << (A,orchid) >>
+class Fragment << (A,orchid) >>
+class Handler << (A,orchid) >>
+
+class SnakeApp {
+onCreate()
+onPause()
+onResume()
+onSaveInstance()
+endGame()
+}
+
+class SnakeCharmer {
+mApplesEaten
+incrementApplesEaten()
+getApplesEaten()
+}
+
+class Options{
+}
+
+class HISSS{
+transmitScore()
+}
+
+class Snake {
+mLength
+mSnakeSegment[]
+update()
+render()
+turnLeft()
+turnRight()
+grow()
+isBitten()
+}
+
+class SnakeSegment {
+update()
+render()
+}
+
+
+class Actor {
+mLocation
+getLocation()
+setLocation)
+update()
+render()
+}
+
+class SnakePit {
+mShakeCharmer
+mSnake
+mApple[2]
+mWall[4]
+mRefreshHandler
+createApple()
+addSnake()
+addWalls()
+detectHitWall()
+detectEatApple()
+}
+
+class Apple {
+render()
+isEaten()
+}
+
+class Wall {
+render()
+isHit()
+}
+
+class RefreshHandler {
+sleep()
+handleMessage()
+}
+
+class Handler {
+}
+
+interface Movable {
+mDirection
+mSpeed
+getDirection()
+setDirection()
+getSpeed()
+setSpeed()
+}
+
+interface Detectable {
+hasCollided()
+}
+
+SnakeApp -- SnakePit
+SnakeApp - HISSS
+SnakeApp -- Options
+SnakeApp -left-|> Activity
+
+Apple --|> Actor
+Apple ...> Detectable
+
+Snake --|> Actor
+Snake ..> Detectable
+Snake -- SnakeSegment
+Snake ..> Movable
+
+SnakeSegment --|> Actor
+SnakeSegment ..> Detectable
+SnakeSegment ..> Movable
+
+SnakePit  --  Apple
+SnakePit  --  Snake
+SnakePit  --  Wall
+SnakePit -right- RefreshHandler
+SnakePit -left-|> Fragment
+
+SnakeCharmer -- Snake
+SnakeCharmer -- SnakePit
+
+Wall --|> Actor
+Wall ...> Detectable
+
+RefreshHandler --|> Handler
+
+
+@enduml

@@ -1,0 +1,13 @@
+@startuml
+(*)  --> "check direction"
+If " turn" then
+--> [Left] "rotate head 90 degrees ccw"
+--> "move head forward 1 position"
+else
+--> [Right] "rotate head 90 degrees cw"
+--> "move head forward 1 position"
+Endif
+
+--> "move tail to next position (follow head) in body"
+-->(*)
+@enduml

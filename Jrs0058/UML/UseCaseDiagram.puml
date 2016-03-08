@@ -1,0 +1,22 @@
+@startuml
+title Use Case Diagram
+
+actor User
+
+
+rectangle  {
+usecase "create haiku" as UC2
+usecase "display haiku" as UC1
+User -- UC2
+User -- UC1
+UC2 ..> (valid word checker): <<includes>>
+UC2 ..> (add adjective): <<includes>>
+UC2 ..> (add noun): <<includes>>
+UC2 ..> (add verb): <<includes>>
+UC2 ..> (add other): <<includes>>
+UC2 ..> (delete word): <<includes>>
+
+
+}
+@enduml
+

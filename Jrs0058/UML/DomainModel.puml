@@ -1,0 +1,47 @@
+@startuml
+
+title Haiku Domain Model
+class User {
+}
+class DisplayHaiku{
+haiku
+}
+class BuildHaiku {
+}
+class HaikuInProgress {
+currentLine
+}
+class Lines{
+numberofSyllables
+ayllableLimit
+}
+class WordSpinner {
+adjectives
+nouns
+verbs
+other
+}
+class Word{
+numberOfSyllables
+word
+line
+}
+
+
+BuildHaiku "1" *-- "1" HaikuInProgress: contains >
+BuildHaiku "1" *-- "1" WordSpinner : contains >
+HaikuInProgress "1" *-- "3" Lines : contains >
+HaikuInProgress "1" *-- "*" Word : contains >
+WordSpinner "1" *-- "*" Word : contains >
+
+User - DisplayHaiku: views and passes haiku to >
+
+User -- WordSpinner: selects word from >
+User -- BuildHaiku: interacts with >
+
+
+
+hide empty members
+hide methods
+
+@enduml

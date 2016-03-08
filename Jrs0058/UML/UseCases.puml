@@ -1,0 +1,44 @@
+@startsalt
+{
+{T
++ Create Haiku
+++  Goal
++++ Create haiku using pre-provided words.
+++ Entry conditions
++++ User launches the application.
+++ Scenario
++++ The user is presented with an interface to where they can build a haiku.
++++ The user can either select to add a adjective, noun, verb, or other (sub-cases).
++++ When the user selects a word and hits add word
+++++ The word is displayed on the line provided.
+++++ The syllable count on the present line is incremented by the amount of syllables of the word.
+++++ The drop down changes to a set of words that fits the remaining syllable requirements (valid word checker) (sub-case).
+++++ User is also given option to delete last word inserted into the haiku (sub-case).
+++ Exceptions
++++ None
+++ Exit conditions
++++ Successful Exit Conditions
+++++ Display the haiku
++++ Failure Exit Conditions
+++++ None
+}
+---
+{T
++ Display Haiku
+++  Goal
++++ To display Haiku created by user.
+++ Entry conditions
++++ User presses button to display haiku
+++ Scenario
++++ Haiku that was built by user (whether completed or not) is displayed in center of the screen.
+++ Exceptions
++++ None
+++ Exit conditions
++++ Successful Exit Conditions
+++++ User presses device back button to go back to build haiku screen.
++++ Failure Exit Conditions
+++++ None
+}
+---
+}
+@endsalt

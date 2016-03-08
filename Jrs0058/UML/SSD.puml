@@ -1,0 +1,32 @@
+@startuml
+title Haiku SSD
+actor User
+participant App
+
+User -> App: start
+note right:  UC: Build Haiku
+par while building haiku
+User <-- App: show list of selectable words
+par if want to add word
+User -> App: select word
+User -> App: add selected word
+User <-- App: display selected word
+note right: SUC: add Word
+opt want to delete
+User -> App: delete word
+note right: SUC: delete Word
+User <-- App: show Haiku without deleted word
+end
+end
+else
+
+opt display haiku
+User -> App: presses display button
+note right: UC: display haiku
+App -> App: changes view to display Haiku
+User <-- App: display haiku
+
+
+end
+end
+@enduml

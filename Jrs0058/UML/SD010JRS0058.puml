@@ -1,0 +1,118 @@
+@startuml
+
+
+[-> SnakeApp: onCreate
+create SnakePit
+activate SnakeApp
+SnakeApp -> SnakePit: construct
+
+loop for all apples
+create Apple
+activate SnakePit
+SnakePit -> Apple: construct
+
+activate Apple
+Apple -> Apple: setLocation
+activate Apple
+deactivate Apple
+Apple --> SnakePit
+deactivate Apple
+end
+
+loop for all walls
+create Wall
+SnakePit -> Wall: construct
+activate Wall
+Wall --> SnakePit
+deactivate Wall
+end
+
+create Snake
+SnakePit -> Snake: construct
+activate Snake
+loop for all segments
+
+create SnakeSegment
+Snake -> SnakeSegment: construct
+activate SnakeSegment
+SnakeSegment --> Snake
+deactivate SnakeSegment
+
+Snake -> SnakeSegment: setLocation
+activate SnakeSegment
+SnakeSegment --> Snake
+deactivate SnakeSegment
+
+Snake -> SnakeSegment: setDirection
+activate SnakeSegment
+SnakeSegment --> Snake
+deactivate SnakeSegment
+
+Snake -> SnakeSegment: setSpeed
+activate SnakeSegment
+SnakeSegment --> Snake
+deactivate SnakeSegment
+
+end
+Snake-->SnakePit
+deactivate Snake
+
+create SnakeCharmer
+SnakePit -> SnakeCharmer: construct
+activate SnakeCharmer
+SnakeCharmer --> SnakePit
+deactivate SnakeCharmer
+
+SnakeCharmer -> Snake: turnLeft
+activate Snake
+Snake --> SnakeCharmer:
+deactivate Snake
+
+SnakeCharmer -> Snake: turnRight
+activate Snake
+Snake --> SnakeCharmer:
+deactivate Snake
+
+loop apple is eaten
+SnakePit -> SnakePit: detectEatenApple
+activate SnakePit
+deactivate SnakePit
+SnakePit -> Apple: isEaten
+SnakePit -> SnakeCharmer: incrementApplesEaten
+activate SnakeCharmer
+deactivate SnakeCharmer
+activate Apple
+Apple --> SnakePit
+SnakePit -> SnakeSegment: update
+activate SnakeSegment
+deactivate Apple
+loop update/render loop
+SnakeSegment -> Snake: update
+activate Snake
+Snake -> Snake: update
+Snake -> SnakeSegment: render
+activate SnakeSegment
+SnakeSegment -> SnakeSegment: render
+SnakeSegment -> Snake: render
+deactivate Snake
+deactivate SnakeSegment
+deactivate SnakeSegment
+end
+end
+loop when wall is hit
+SnakePit -> SnakePit: detectHitWall
+activate SnakePit
+deactivate SnakePit
+Wall <- SnakePit: isHit
+activate Wall
+Wall --> SnakePit
+deactivate Wall
+SnakePit -> SnakeApp: EndGame
+<- SnakeApp: TransmitScore
+end
+SnakePit --> SnakeApp
+
+deactivate SnakePit
+<-- SnakeApp
+deactivate SnakeApp
+@enduml
